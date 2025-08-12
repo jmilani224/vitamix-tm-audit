@@ -159,19 +159,13 @@ async def process_url(
 ) -> List[Dict[str, Any]]:
     findings: List[Dict[str, Any]] = []
     try:
-        # Faster, less-stally than "networkidle"
         await page.goto(url, wait_until="domcontentloaded", timeout=15000)
     except Exception as exc:
+        # Keep navigation/evaluation errors so the run isn’t silent on failures
         findings.append(
             {
-                "url": url,
-                "term": "",
-                "issue": "navigation error",
-                "expected": "",
-                "found": "",
-                "path": "",
-                "snippet": "",
-                "details": str(exc),
+                "url": url, "term": "", "issue": "navigation error",
+                "expected": "", "found": "", "path": "", "snippet": "", "details": str(exc),
             }
         )
         return findings
@@ -181,33 +175,28 @@ async def process_url(
     except Exception as exc:
         findings.append(
             {
-                "url": url,
-                "term": "",
-                "issue": "evaluation error",
-                "expected": "",
-                "found": "",
-                "path": "",
-                "snippet": "",
-                "details": str(exc),
+                "url": url, "term": "", "issue": "evaluation error",
+                "expected": "", "found": "", "path": "", "snippet": "", "details": str(exc),
             }
         )
         return findings
 
     page_has_issue = False
 
+    # New behavior: only emit a row if the term appears in a prominent node
+    # AND the immediately following symbol is wrong or missing.
     for mark in marks:
-        term = mark["term"]
+        term   = mark["term"]
         symbol = mark["symbol"]
-        ci = mark.get("case_insensitive", True)
+        ci     = mark.get("case_insensitive", True)
 
-        issue_recorded = False
         for candidate in candidates:
             text = candidate["text"] or ""
-            idx = find_first_term(text, term, ci)
+            idx  = (text.lower().find(term.lower()) if ci else text.find(term))
             if idx == -1:
                 continue
 
-            # Found term in this candidate; check the following char (after optional spaces/punct)
+            # Term found in a prominent node — check the symbol right after the term
             end = idx + len(term)
             actual_symbol = ""
             j = end
@@ -217,67 +206,41 @@ async def process_url(
                 actual_symbol = text[j]
 
             if actual_symbol == symbol:
-                # Correct symbol at first prominent occurrence
+                # Correct → no finding
                 pass
             elif actual_symbol in ["®", "™"] and actual_symbol != symbol:
                 findings.append(
                     {
-                        "url": url,
-                        "term": term,
-                        "issue": "wrong symbol",
-                        "expected": symbol,
-                        "found": actual_symbol,
-                        "path": candidate["path"],
-                        "snippet": (text.strip()[:300]),
-                        "details": "",
+                        "url": url, "term": term, "issue": "wrong symbol",
+                        "expected": symbol, "found": actual_symbol,
+                        "path": candidate["path"], "snippet": (text.strip()[:300]), "details": "",
                     }
                 )
-                issue_recorded = True
                 page_has_issue = True
             else:
                 findings.append(
                     {
-                        "url": url,
-                        "term": term,
-                        "issue": "missing symbol",
-                        "expected": symbol,
-                        "found": actual_symbol or "",
-                        "path": candidate["path"],
-                        "snippet": (text.strip()[:300]),
-                        "details": "",
+                        "url": url, "term": term, "issue": "missing symbol",
+                        "expected": symbol, "found": actual_symbol or "",
+                        "path": candidate["path"], "snippet": (text.strip()[:300]), "details": "",
                     }
                 )
-                issue_recorded = True
                 page_has_issue = True
 
-            break  # only the first prominent occurrence per term
-
-        if not issue_recorded:
-            findings.append(
-                {
-                    "url": url,
-                    "term": term,
-                    "issue": "not found in prominent text",
-                    "expected": symbol,
-                    "found": "",
-                    "path": "",
-                    "snippet": "",
-                    "details": "",
-                }
-            )
+            break  # only evaluate the first prominent occurrence for this mark
 
     if save_screenshot and page_has_issue:
+        from datetime import datetime
+        import os
         ts = datetime.utcnow().strftime("%Y%m%dT%H%M%SZ")
         safe = url.replace("://", "__").replace("/", "_")
         filepath = os.path.join(out_dir, f"{safe}_{ts}.png")
         try:
             await page.screenshot(path=filepath, full_page=True)
         except Exception:
-            # best-effort; ignore screenshot errors
             pass
 
     return findings
-
 
 # -----------------------------
 # Runner with per-worker pages + progress
@@ -356,7 +319,6 @@ body{font-family:system-ui,Segoe UI,Roboto,Helvetica,Arial,sans-serif;margin:24p
 .snip{white-space:pre-wrap}
 .issue-missing{background:#ffe5e5}
 .issue-wrong{background:#fff3cd}
-.issue-notfound{background:#eef7ff}
 </style></head><body>
 <h1>Vitamix Trademark Audit — Report</h1>
 <p>Only text marks; logos/design marks are ignored. Screenshots saved only for flagged pages.</p>
