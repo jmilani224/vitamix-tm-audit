@@ -1,0 +1,42 @@
+name: Vitamix Trademark Audit
+
+on:
+  workflow_dispatch:
+    # Allows the workflow to be triggered manually from the GitHub UI.
+    inputs: {}
+
+jobs:
+  audit:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+          python -m playwright install chromium
+          python -m playwright install-deps chromium
+
+      - name: Run Vitamix trademark audit
+        run: |
+          mkdir -p runs/out
+          python audit.py \
+            --urls-file top_urls_clean_us_en.csv \
+            --marks-file trademarks_us_2025_text_only.json \
+            --out runs/out \
+            --concurrency 4 \
+            --rps 2 \
+            --save-flagged-screenshots
+
+      - name: Upload results as artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: vitamix-audit-results
+          path: runs/out
+          if-no-files-found: error
