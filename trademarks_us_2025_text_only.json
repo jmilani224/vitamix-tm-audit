@@ -1,0 +1,344 @@
+{
+  "marks": [
+    {
+      "term": "VITA-MIX",
+      "symbol": "\u00ae",
+      "variants": [],
+      "case_insensitive": true,
+      "policy": "first_prominent_only",
+      "locales": [
+        "en-US"
+      ]
+    },
+    {
+      "term": "BLENDING STATION",
+      "symbol": "\u00ae",
+      "variants": [],
+      "case_insensitive": true,
+      "policy": "first_prominent_only",
+      "locales": [
+        "en-US"
+      ]
+    },
+    {
+      "term": "VITA-PREP",
+      "symbol": "\u00ae",
+      "variants": [],
+      "case_insensitive": true,
+      "policy": "first_prominent_only",
+      "locales": [
+        "en-US"
+      ]
+    },
+    {
+      "term": "TURBOBLEND",
+      "symbol": "\u00ae",
+      "variants": [],
+      "case_insensitive": true,
+      "policy": "first_prominent_only",
+      "locales": [
+        "en-US"
+      ]
+    },
+    {
+      "term": "RINSE-O-MATIC",
+      "symbol": "\u00ae",
+      "variants": [],
+      "case_insensitive": true,
+      "policy": "first_prominent_only",
+      "locales": [
+        "en-US"
+      ]
+    },
+    {
+      "term": "BARBOSS",
+      "symbol": "\u00ae",
+      "variants": [],
+      "case_insensitive": true,
+      "policy": "first_prominent_only",
+      "locales": [
+        "en-US"
+      ]
+    },
+    {
+      "term": "MIX'N MACHINE",
+      "symbol": "\u00ae",
+      "variants": [],
+      "case_insensitive": true,
+      "policy": "first_prominent_only",
+      "locales": [
+        "en-US"
+      ]
+    },
+    {
+      "term": "T&G",
+      "symbol": "\u00ae",
+      "variants": [],
+      "case_insensitive": true,
+      "policy": "first_prominent_only",
+      "locales": [
+        "en-US"
+      ]
+    },
+    {
+      "term": "THE QUIET ONE",
+      "symbol": "\u00ae",
+      "variants": [],
+      "case_insensitive": true,
+      "policy": "first_prominent_only",
+      "locales": [
+        "en-US"
+      ]
+    },
+    {
+      "term": "VITAMIX",
+      "symbol": "\u00ae",
+      "variants": [],
+      "case_insensitive": true,
+      "policy": "first_prominent_only",
+      "locales": [
+        "en-US"
+      ]
+    },
+    {
+      "term": "ADVANCE",
+      "symbol": "\u00ae",
+      "variants": [],
+      "case_insensitive": true,
+      "policy": "first_prominent_only",
+      "locales": [
+        "en-US"
+      ]
+    },
+    {
+      "term": "VITAMIX XL",
+      "symbol": "\u00ae",
+      "variants": [],
+      "case_insensitive": true,
+      "policy": "first_prominent_only",
+      "locales": [
+        "en-US"
+      ]
+    },
+    {
+      "term": "7500",
+      "symbol": "\u00ae",
+      "variants": [],
+      "case_insensitive": true,
+      "policy": "first_prominent_only",
+      "locales": [
+        "en-US"
+      ]
+    },
+    {
+      "term": "750",
+      "symbol": "\u00ae",
+      "variants": [],
+      "case_insensitive": true,
+      "policy": "first_prominent_only",
+      "locales": [
+        "en-US"
+      ]
+    },
+    {
+      "term": "S30",
+      "symbol": "\u00ae",
+      "variants": [],
+      "case_insensitive": true,
+      "policy": "first_prominent_only",
+      "locales": [
+        "en-US"
+      ]
+    },
+    {
+      "term": "S-SERIES",
+      "symbol": "\u00ae",
+      "variants": [],
+      "case_insensitive": true,
+      "policy": "first_prominent_only",
+      "locales": [
+        "en-US"
+      ]
+    },
+    {
+      "term": "ASCENT",
+      "symbol": "\u00ae",
+      "variants": [],
+      "case_insensitive": true,
+      "policy": "first_prominent_only",
+      "locales": [
+        "en-US"
+      ]
+    },
+    {
+      "term": "VENTURIST",
+      "symbol": "\u00ae",
+      "variants": [],
+      "case_insensitive": true,
+      "policy": "first_prominent_only",
+      "locales": [
+        "en-US"
+      ]
+    },
+    {
+      "term": "SELF-DETECT",
+      "symbol": "\u00ae",
+      "variants": [],
+      "case_insensitive": true,
+      "policy": "first_prominent_only",
+      "locales": [
+        "en-US"
+      ]
+    },
+    {
+      "term": "EXPLORIAN",
+      "symbol": "\u00ae",
+      "variants": [],
+      "case_insensitive": true,
+      "policy": "first_prominent_only",
+      "locales": [
+        "en-US"
+      ]
+    },
+    {
+      "term": "TOUCH & GO",
+      "symbol": "\u00ae",
+      "variants": [],
+      "case_insensitive": true,
+      "policy": "first_prominent_only",
+      "locales": [
+        "en-US"
+      ]
+    },
+    {
+      "term": "AER",
+      "symbol": "\u00ae",
+      "variants": [],
+      "case_insensitive": true,
+      "policy": "first_prominent_only",
+      "locales": [
+        "en-US"
+      ]
+    },
+    {
+      "term": "VITAMIX ONE",
+      "symbol": "\u00ae",
+      "variants": [],
+      "case_insensitive": true,
+      "policy": "first_prominent_only",
+      "locales": [
+        "en-US"
+      ]
+    },
+    {
+      "term": "IMMERSION STATION",
+      "symbol": "\u00ae",
+      "variants": [],
+      "case_insensitive": true,
+      "policy": "first_prominent_only",
+      "locales": [
+        "en-US"
+      ]
+    },
+    {
+      "term": "WHOLE BEGINS HERE",
+      "symbol": "\u00ae",
+      "variants": [],
+      "case_insensitive": true,
+      "policy": "first_prominent_only",
+      "locales": [
+        "en-US"
+      ]
+    },
+    {
+      "term": "ECO 5",
+      "symbol": "\u00ae",
+      "variants": [],
+      "case_insensitive": true,
+      "policy": "first_prominent_only",
+      "locales": [
+        "en-US"
+      ]
+    },
+    {
+      "term": "PROPEL",
+      "symbol": "\u00ae",
+      "variants": [],
+      "case_insensitive": true,
+      "policy": "first_prominent_only",
+      "locales": [
+        "en-US"
+      ]
+    },
+    {
+      "term": "QUIET AND QUICK",
+      "symbol": "TM",
+      "variants": [],
+      "case_insensitive": true,
+      "policy": "first_prominent_only",
+      "locales": [
+        "en-US"
+      ]
+    },
+    {
+      "term": "ACCELERATE",
+      "symbol": "TM",
+      "variants": [],
+      "case_insensitive": true,
+      "policy": "first_prominent_only",
+      "locales": [
+        "en-US"
+      ]
+    },
+    {
+      "term": "POWER-PREP",
+      "symbol": "TM",
+      "variants": [],
+      "case_insensitive": true,
+      "policy": "first_prominent_only",
+      "locales": [
+        "en-US"
+      ]
+    },
+    {
+      "term": "ASCENT X",
+      "symbol": "TM",
+      "variants": [],
+      "case_insensitive": true,
+      "policy": "first_prominent_only",
+      "locales": [
+        "en-US"
+      ]
+    },
+    {
+      "term": "QUICK & QUIET",
+      "symbol": "\u00ae",
+      "variants": [],
+      "case_insensitive": true,
+      "policy": "first_prominent_only",
+      "locales": [
+        "en-US"
+      ]
+    },
+    {
+      "term": "ION",
+      "symbol": "TM",
+      "variants": [],
+      "case_insensitive": true,
+      "policy": "first_prominent_only",
+      "locales": [
+        "en-US"
+      ]
+    },
+    {
+      "term": "NANO",
+      "symbol": "TM",
+      "variants": [],
+      "case_insensitive": true,
+      "policy": "first_prominent_only",
+      "locales": [
+        "en-US"
+      ]
+    }
+  ]
+}
