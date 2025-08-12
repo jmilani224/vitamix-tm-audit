@@ -46,6 +46,8 @@ from typing import List, Dict, Any
 import pandas as pd
 from playwright.async_api import async_playwright, Browser, Page
 
+import re
+
 
 # -----------------------------
 # Input loaders
@@ -190,45 +192,50 @@ async def process_url(
         symbol = mark["symbol"]
         ci     = mark.get("case_insensitive", True)
 
-        for candidate in candidates:
-            text = candidate["text"] or ""
-            idx  = (text.lower().find(term.lower()) if ci else text.find(term))
-            if idx == -1:
-                continue
+    for candidate in candidates:
+      text = candidate["text"] or ""
+  
+      # Build an exact-token regex: not preceded/followed by letters/digits
+      term_escaped = re.escape(term)
+      boundary = r"(?<![A-Za-z0-9])" + term_escaped + r"(?![A-Za-z0-9])"
+      flags = re.IGNORECASE if ci else 0
+      m = re.search(boundary, text, flags)
+      if not m:
+          continue
+  
+      # Term found in a prominent node — check the symbol right after the term
+      end = m.end()
+      actual_symbol = ""
+      j = end
+      # (keep the same punctuation/space skip set as before)
+      while j < len(text) and text[j] in " \t\r\n\u00A0.-–—:,":
+          j += 1
+      if j < len(text):
+          actual_symbol = text[j]
+  
+      if actual_symbol == symbol:
+          pass  # correct → no finding
+      elif actual_symbol in ["®", "™"] and actual_symbol != symbol:
+          findings.append(
+              {
+                  "url": url, "term": term, "issue": "wrong symbol",
+                  "expected": symbol, "found": actual_symbol,
+                  "path": candidate["path"], "snippet": (text.strip()[:300]), "details": "",
+              }
+          )
+          page_has_issue = True
+      else:
+          findings.append(
+              {
+                  "url": url, "term": term, "issue": "missing symbol",
+                  "expected": symbol, "found": actual_symbol or "",
+                  "path": candidate["path"], "snippet": (text.strip()[:300]), "details": "",
+              }
+          )
+          page_has_issue = True
 
-            # Term found in a prominent node — check the symbol right after the term
-            end = idx + len(term)
-            actual_symbol = ""
-            j = end
-            while j < len(text) and text[j] in " \t\r\n\u00A0.-–—:,":
-                j += 1
-            if j < len(text):
-                actual_symbol = text[j]
-
-            if actual_symbol == symbol:
-                # Correct → no finding
-                pass
-            elif actual_symbol in ["®", "™"] and actual_symbol != symbol:
-                findings.append(
-                    {
-                        "url": url, "term": term, "issue": "wrong symbol",
-                        "expected": symbol, "found": actual_symbol,
-                        "path": candidate["path"], "snippet": (text.strip()[:300]), "details": "",
-                    }
-                )
-                page_has_issue = True
-            else:
-                findings.append(
-                    {
-                        "url": url, "term": term, "issue": "missing symbol",
-                        "expected": symbol, "found": actual_symbol or "",
-                        "path": candidate["path"], "snippet": (text.strip()[:300]), "details": "",
-                    }
-                )
-                page_has_issue = True
-
-            break  # only evaluate the first prominent occurrence for this mark
-
+    break  # only evaluate the first prominent occurrence for this mark
+  
     if save_screenshot and page_has_issue:
         from datetime import datetime
         import os
